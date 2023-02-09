@@ -55,24 +55,23 @@ router.get('/post/:postId', async (req, res) => {
 })
 router.get('/post', async (req, res) => {
     const user = req.query.username;
-    const category = req.query.categories;
+    const category = req.query.category;
     try {
         let posts;
         if (user) {
             console.log(user);
             posts = await Post.find({username: user })
         } else if (category) {
-            console.log(category);
+            console.log(typeof category);
             try {
-                posts = await Post.find({categories:{ "$in":["life"]}})
-                // PersonModel.find({ favouriteFoods: { "$in" : ["sushi"]} });
-                console.log(posts);
+                posts = await Post.find({categories:{
+                    $in:[category]
+                }})
+                // in postman in body :  "categories": ["sport"]
             } catch (err) {
                 console.log('err', err);
                 res.status(500).json(err);
             }
-            
-            // db.inventory.find( { quantity: { $in: [ 5, 15 ] } }, { _id: 0 } )
         } else {
             posts = await Post.find();
         }

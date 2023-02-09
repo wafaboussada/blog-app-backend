@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+const ToySchema = new mongoose.Schema({ type: String });
 const PostSchema = new mongoose.Schema({
    title: {
     type: String,
@@ -18,14 +19,14 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
    },
-   // categories: {
-   //  type: Array, // ["Cinéma", "Music"]
-   //  required: false,
-   // }
-   categories:[{
-      type:mongoose.Schema.Types.String,
-      ref:'Categories',
-  }],
+   categories: {
+    type: [String], // ["Cinéma", "Music"]
+    required: false,
+   }
+//    categories:[{
+//       type:mongoose.Schema.Types.String,
+//       ref:'Categories',
+//   }],
 },
 { timestamps: true }
 );
