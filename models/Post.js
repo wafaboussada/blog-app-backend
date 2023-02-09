@@ -18,11 +18,18 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
    },
-   categories: {
-    type: Array, // ["Cinéma", "Music"]
-    required: false,
-   }
+   // categories: {
+   //  type: Array, // ["Cinéma", "Music"]
+   //  required: false,
+   // }
+   categories:[{
+      type:mongoose.Schema.Types.String,
+      ref:'Categories',
+  }],
 },
 { timestamps: true }
 );
+
+module.exports = mongoose.model("Post", PostSchema);
+
 

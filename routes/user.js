@@ -24,8 +24,31 @@ router.put('/user/:userId', async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+})
 
-
+router.delete('/user/:userId', async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.userId);
+        res.status(200).json('user deleted successfully');
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+router.get('/user/:userId', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+router.get('/user', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 })
 
 module.exports = router;
