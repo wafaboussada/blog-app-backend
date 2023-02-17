@@ -4,7 +4,7 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 
 
-router.post('/post', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         console.log(req.body);
         const newPost = new Post(req.body);
@@ -17,7 +17,7 @@ router.post('/post', async (req, res) => {
     
 })
 
-router.put('/post/:postId', async (req, res) => {
+router.put('/:postId', async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
         if (req.body.username === post.username) {
@@ -32,7 +32,7 @@ router.put('/post/:postId', async (req, res) => {
     }
 })
 
-router.delete('/post/:postId', async (req, res) => {
+router.delete('/:postId', async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId);
         if (req.body.username === post.username) {
@@ -45,7 +45,7 @@ router.delete('/post/:postId', async (req, res) => {
         res.status(500).json(err);
     }
 })
-router.get('/post/:postId', async (req, res) => {
+router.get('/:postId', async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId);
         res.status(200).json(post);
@@ -53,7 +53,7 @@ router.get('/post/:postId', async (req, res) => {
         res.status(500).json(err);
     }
 })
-router.get('/post', async (req, res) => {
+router.get('/', async (req, res) => {
     const user = req.query.username;
     const category = req.query.category;
     try {

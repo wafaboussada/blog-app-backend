@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 
-router.put('/user/:userId', async (req, res) => {
+router.put('/:userId', async (req, res) => {
     try {
         let newHashedPassword;
         console.log('condition', req.body.id === req.params.userId)
@@ -26,7 +26,7 @@ router.put('/user/:userId', async (req, res) => {
     }
 })
 
-router.delete('/user/:userId', async (req, res) => {
+router.delete('/:userId', async (req, res) => {
     try {
         await User.findByIdAndDelete(req.params.userId);
         res.status(200).json('user deleted successfully');
@@ -34,7 +34,7 @@ router.delete('/user/:userId', async (req, res) => {
         res.status(500).json(err);
     }
 })
-router.get('/user/:userId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
         res.status(200).json(user);
@@ -42,7 +42,7 @@ router.get('/user/:userId', async (req, res) => {
         res.status(500).json(err);
     }
 })
-router.get('/user', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const users = await User.find();
         res.status(200).json(users);

@@ -36,7 +36,12 @@ router.post('/register', async (req, res) => {
     res.status(200).json(newUser);
     } catch(err) {
         // bloc ddes erruerurs
-        res.status(500).json(err);
+        console.log(err.code);
+        if (err.code === 11000) {
+            res.status(500).json({message: "username or email elready exist", code: 11000});
+        } else {
+            res.status(500).json(err);
+        }
     }
 })
 
@@ -48,7 +53,7 @@ router.post('/login', async (req, res) => {
         } = req.body;
         const user = await User.findOne({ username: userName});
         console.log('user', user);
-        !user && res.status(400).json('wrong username !');
+        !user && res.status(400).json('INVALID_USERNAME');
         // if (!user) {
         //     res.status(400).json('wrong username !');
         // }
@@ -56,7 +61,7 @@ router.post('/login', async (req, res) => {
         const validatedPassword = await bcrypt.compare(password, user.password);
         console.log('validatedPassword', validatedPassword);
         if (!validatedPassword) {
-            res.status(400).json('wrong password !');
+            res.status(400).json('INVALID_PASSWORD');
         }
         res.status(200).json(user);
     } catch(err) {

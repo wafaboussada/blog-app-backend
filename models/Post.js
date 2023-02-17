@@ -20,6 +20,7 @@ const PostSchema = new mongoose.Schema({
     required: true,
    },
    categories: {
+   //  type: Array,
     type: [String], // ["Cinéma", "Music"]
     required: false,
    }
